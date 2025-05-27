@@ -1,60 +1,74 @@
-# Naivechain - a blockchain implementation in 200 lines of code
+# Naive-Chain
 
-### Motivation
-All the current implementations of blockchains are tightly coupled with the larger context and problems they (e.g. Bitcoin or Ethereum) are trying to solve. This makes understanding blockchains a necessarily harder task, than it must be. Especially source-code-wisely. This project is an attempt to provide as concise and simple implementation of a blockchain as possible.
+A simple, educational blockchain implementation for learning and experimentation.
 
- 
-### What is blockchain
-[From Wikipedia](https://en.wikipedia.org/wiki/Blockchain_(database)) : Blockchain is a distributed database that maintains a continuously-growing list of records called blocks secured from tampering and revision.
+## About
 
-### Key concepts of Naivechain
-Check also [this blog post](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54#.dttbm9afr5) for a more detailed overview of the key concepts
-* HTTP interface to control the node
-* Use Websockets to communicate with other nodes (P2P)
-* Super simple "protocols" in P2P communication
-* Data is not persisted in nodes
-* No proof-of-work or proof-of-stake: a block can be added to the blockchain without competition
+Naive-Chain is a basic blockchain project designed to help users understand core blockchain concepts through a minimal and readable codebase.
 
+## Features
 
-![alt tag](naivechain_blockchain.png)
+- Minimal blockchain implementation in JavaScript
+- Block creation and validation
+- Simple peer-to-peer network using WebSockets
+- Educational code with clear comments
 
-![alt tag](naivechain_components.png)
+## Getting Started
 
+### Prerequisites
 
-### Naivecoin
-For a more extensive tutorial about blockchains, you can check the project [Naivecoin](https://lhartikk.github.io/). It is based on Naivechain and implements for instance Proof-of-work, transactions and wallets.
+- Node.js (v12 or above)
+- npm
 
-### Quick start
-(set up two connected nodes and mine 1 block)
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/TartarusDevtech/Naive-Chain.git
+cd Naive-Chain
 ```
+
+Install dependencies:
+
+```bash
 npm install
-HTTP_PORT=3001 P2P_PORT=6001 npm start
-HTTP_PORT=3002 P2P_PORT=6002 PEERS=ws://localhost:6001 npm start
-curl -H "Content-type:application/json" --data '{"data" : "Some data to the first block"}' http://localhost:3001/mineBlock
 ```
 
-### Quick start with Docker
-(set up three connected nodes and mine a block)
-###
-```sh
-docker-compose up
-curl -H "Content-type:application/json" --data '{"data" : "Some data to the first block"}' http://localhost:3001/mineBlock
+### Usage
+
+Start the blockchain node:
+
+```bash
+node main.js
 ```
 
-### HTTP API
-##### Get blockchain
+You can run multiple instances on different ports to simulate a network:
+
+```bash
+PORT=3001 node main.js
+PORT=3002 node main.js
 ```
-curl http://localhost:3001/blocks
+
+## Configuration
+
+You can set the `PORT` environment variable to run multiple nodes:
+
+```bash
+PORT=3001 node main.js
 ```
-##### Create block
-```
-curl -H "Content-type:application/json" --data '{"data" : "Some data to the first block"}' http://localhost:3001/mineBlock
-``` 
-##### Add peer
-```
-curl -H "Content-type:application/json" --data '{"peer" : "ws://localhost:6001"}' http://localhost:3001/addPeer
-```
-#### Query connected peers
-```
-curl http://localhost:3001/peers
-```
+
+## API Endpoints
+
+- `GET /blocks` - Returns the blockchain
+- `POST /mineBlock` - Mines a new block with posted data
+- `GET /peers` - Lists connected peers
+- `POST /addPeer` - Connects to a new peer
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements or new features.
+
+## License
+
+This project is licensed under the MIT License.
